@@ -31,17 +31,66 @@ IRsend irsend;
 
 #define RGBPC 0x20DFAB54
 
+#define powerButton 4
+#define volumeUpButton 5
+#define volumeDownButton 6
+#define channelUpButton 7
+#define channelDownButton 8
+#define muteButton 9
+#define HDMI1Button 10
+#define HDMI2Button 11
+#define HDMI3Button 12
+#define HDMI4Button 13
+
 //VCC (PRETO) GROUND (BRANCO)
 
 void setup()
 {
   Serial.begin(9600);
+  pinMode(powerButton, INPUT);
+  pinMode(volumeUpButton, INPUT);
+  pinMode(volumeDownButton, INPUT);
+  pinMode(channelUpButton, INPUT);
+  pinMode(channelDownButton, INPUT);
+  pinMode(muteButton, INPUT);
+  pinMode(HDMI1Button, INPUT);
+  pinMode(HDMI2Button, INPUT);
+  pinMode(HDMI3Button, INPUT);
+  pinMode(HDMI4Button, INPUT);
 }
 
 void loop() {
-
-  //desliga/liga de 3 em 3 segundos
-  irsend.sendNEC(Power,32); 
-
-  delay(3000); 
+  // Manda o comando do botão pressionado
+  if (digitalRead(powerButton)) {
+    irsend.sendNEC(Power, 32);
+  }
+  if (digitalRead(volumeUpButton)) {
+    irsend.sendNEC(VolumeUp, 32);
+  }
+  if (digitalRead(volumeDownButton)) {
+    irsend.sendNEC(VolumeDown, 32);
+  }
+  if (digitalRead(channelUpButton)) {
+    irsend.sendNEC(ChannelUp, 32);
+  }
+  if (digitalRead(channelDownButton)) {
+    irsend.sendNEC(ChannelDown, 32);
+  }
+  if (digitalRead(muteButton)) {
+    irsend.sendNEC(Mute, 32);
+  }
+  if (digitalRead(HDMI1Button)) {
+    irsend.sendNEC(HDMI1, 32);
+  }
+  if (digitalRead(HDMI2Button)) {
+    irsend.sendNEC(HDMI2, 32);
+  }
+  if (digitalRead(HDMI3Button)) {
+    irsend.sendNEC(HDMI3, 32);
+  }
+  if (digitalRead(HDMI4Button)) {
+    irsend.sendNEC(HDMI4, 32);
+  }
+  // Espera 1000 milissegundos pro próximo comando
+  delay(1000);
 }
